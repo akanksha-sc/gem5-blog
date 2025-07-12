@@ -44,10 +44,6 @@ The user then places the accelerator inside an `AccCluster`, attaches scratchpad
 
 ## Getting Started
 
-Here’s a shortened and refined version that preserves all key details:
-
----
-
 To get started, set the following environment variables to your gem5 and benchmark root directories:
 
 ```bash
