@@ -1,6 +1,6 @@
 # Towards Full-System Heterogeneous Simulation in gem5
 
-As SoC architectures grow increasingly heterogeneous, they now integrate not only CPUs and GPUs but also tightly coupled programmable accelerators tailored for specific workloads. These accelerators are critical for emerging domains such as mobile inference, AR/VR, real-time vision, and edge analytics. Unlike traditional CPU-GPU systems, modern heterogeneous platforms demand fine-grained coordination among diverse compute engines, shared memory subsystems, and software-managed execution models. Capturing these interactions requires a cycle-accurate, full-system simulator.
+As SoC architectures grow increasingly heterogeneous, they now integrate not only CPUs and GPUs but also tightly coupled programmable accelerators tailored for specific workloads. These accelerators are critical for emerging domains such as mobile inference, AR/VR, real-time vision, and edge analytics. Unlike traditional CPU-GPU systems, modern heterogeneous platforms demand fine-grained coordination among diverse compute engines, shared memory subsystems, and software-managed execution models. Capturing these interactions requires a cycle-level, full-system simulator.
 
 While gem5 has long supported detailed CPU simulation and, more recently, full-system GPU modeling, support for programmable accelerators remained external via tools like gem5-SALAM—built on gem5 v21.1. Although SALAM added accelerator-specific capabilities such as cycle-level datapath modeling, memory-mapped scratchpads, and hardware synthesis integration, it was isolated from the mainline. As a result, it could not leverage recent ISA, memory system, or configuration infrastructure updates, nor benefit from upstream validation.
 
@@ -14,7 +14,7 @@ We began by integrating key accelerator modeling components from SALAM into gem5
 
 We then updated SALAM’s accelerator infrastructure to match gem5’s latest design conventions. This included refactoring classes to use modern SimObject patterns, replacing unsafe pointer casts in LLVM instruction handling with type-safe 32-bit variables, and switching to gem5’s standardized random number generator for latency modeling. We fixed off-by-one errors in address range definitions to follow gem5’s inclusive-exclusive semantics, aligned environment and ISA configuration with gem5’s current setup, and added dynamic LLVM detection using `llvm-config` to simplify SCons-based compilation for datapath simulation.
 
-Finally, we validated the integrated framework by ensuring it passed gem5’s pre-commit checks and full regression test suite. Additionally, we adapted SALAM’s original system validation tests to run within the unified environment and cross-validated the outputs against the original SALAM baseline to confirm functional equivalence.
+Finally, we validated the integrated framework by ensuring it passed gem5’s pre-commit checks and full regression test suite. Additionally, we adapted SALAM’s original system validation tests to run within the unified environment and cross-validated the outputs against the original SALAM baseline to confirm functional equivalence. We plan to upstream these accelerator tests to the gem5-resources repository to support broader validation of the integrated SALAM components within gem5.
 
 ## What This Enables
 
@@ -82,9 +82,11 @@ This boots Linux, launches a user-space driver, and simulates the accelerator. O
 
 ## Conclusion
 
-This integration positions gem5 as a unified, full-system simulator for heterogeneous SoCs—combining CPUs, GPUs, and programmable accelerators under one framework with realistic timing, software, and architectural detail.
+This integration positions gem5 as a unified, full-system simulator for heterogeneous SoCs—combining CPUs, GPUs, and programmable accelerators under one framework with realistic timing, software, and architectural detail. It opens the door to studies ranging from co-scheduling and memory-system tuning to high-frequency accelerator and advanced-cooling analyses. Next steps include merging the support into gem5 mainline, expanding the benchmark suite with domain-specific workloads, and extending full-system accelerator support to additional ISAs. We hope this foundation accelerates heterogeneous-system research across the community.
 
-It opens the door to studies ranging from co-scheduling and memory-system tuning to high-frequency accelerator and advanced-cooling analyses. Next steps include merging the support into gem5 mainline, expanding the benchmark suite with domain-specific workloads, and extending full-system accelerator support to additional ISAs. We hope this foundation accelerates heterogeneous-system research across the community.
+## Acknowledgments
+
+This work is supported in part by the Semiconductor Research Corporation and by the DOE’s Office of Science, Office of Advanced Scientific Computing Research through EXPRESS: 2023 Exploratory Research for Extreme Scale Science.
 
 ## References
 
