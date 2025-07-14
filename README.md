@@ -78,7 +78,7 @@ Run a benchmark (custom or built-in like `bfs`):
 $M5_PATH/tools/run_system.sh --bench <benchmark_name> --bench-path <benchmark_path>
 ```
 
-This boots Linux, launches a user-space driver, and simulates the accelerator. Outputs include `stats.txt` (performance counters), `system.terminal` (host console output), `SALAM_power.csv` (power/area estimates, if CACTI-SALAM is used). Additional examples and documents are in `src/hwacc/docs`.
+This boots Linux, launches a user-space driver, and simulates the accelerator. Outputs include `stats.txt` (performance counters), `system.terminal` (host console output), `SALAM_power.csv` (power/area estimates, if CACTI-SALAM is used). Additional examples and documentation included in `src/hwacc/docs`.
 
 ## Conclusion
 
